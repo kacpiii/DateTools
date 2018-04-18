@@ -66,91 +66,52 @@ public extension Date {
         let earliest = self.earlierDate(date)
         let latest = (earliest == self) ? date : self //Should be triple equals, but not extended to Date at this time
         
-        
         let components = calendar.dateComponents(unitFlags, from: earliest, to: latest)
         let yesterday = date.subtract(1.days)
         let isYesterday = yesterday.day == self.day
+        let sameYear = date.year == self.year
         
         //Not Yet Implemented/Optional
         //The following strings are present in the translation files but lack logic as of 2014.04.05
         //@"Today", @"This week", @"This month", @"This year"
         //and @"This morning", @"This afternoon"
         
-        if (components.year! >= 2) {
-            return self.logicalLocalizedStringFromFormat(format: "%%d %@years ago", value: components.year!)
-        }
-        else if (components.year! >= 1) {
-            
-            if (numericDates) {
-                return DateToolsLocalizedStrings("1 year ago");
+        if (components.month! >= 1) {
+            if sameYear {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd MMMM"
+                
+                return formatter.string(from: self)
+            } else {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd MMMM YYYY"
+                
+                return formatter.string(from: self)
             }
-            
-            return DateToolsLocalizedStrings("Last year");
-        }
-        else if (components.month! >= 2) {
-            return self.logicalLocalizedStringFromFormat(format: "%%d %@months ago", value: components.month!)
-        }
-        else if (components.month! >= 1) {
-            
-            if (numericDates) {
-                return DateToolsLocalizedStrings("1 month ago");
-            }
-            
-            return DateToolsLocalizedStrings("Last month");
-        }
-        else if (components.weekOfYear! >= 2) {
-            return self.logicalLocalizedStringFromFormat(format: "%%d %@weeks ago", value: components.weekOfYear!)
         }
         else if (components.weekOfYear! >= 1) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM"
             
-            if (numericDates) {
-                return DateToolsLocalizedStrings("1 week ago");
-            }
-            
-            return DateToolsLocalizedStrings("Last week");
+            return formatter.string(from: self)
         }
         else if (components.day! >= 2) {
-            return self.logicalLocalizedStringFromFormat(format: "%%d %@days ago", value: components.day!)
+            return String.init(format: "%d dni temu", components.day!)
         }
         else if (isYesterday) {
-            if (numericDates) {
-                return DateToolsLocalizedStrings("1 day ago");
-            }
-            
-            return DateToolsLocalizedStrings("Yesterday");
-        }
-        else if (components.hour! >= 2) {
-            return self.logicalLocalizedStringFromFormat(format: "%%d %@hours ago", value: components.hour!)
+            return "1 dzień temu"
         }
         else if (components.hour! >= 1) {
-            
-            if (numericTimes) {
-                return DateToolsLocalizedStrings("1 hour ago");
-            }
-            
-            return DateToolsLocalizedStrings("An hour ago");
-        }
-        else if (components.minute! >= 2) {
-            return self.logicalLocalizedStringFromFormat(format: "%%d %@minutes ago", value: components.minute!)
+            return String.init(format: "%d godz. temu", components.hour!)
         }
         else if (components.minute! >= 1) {
-            
-            if (numericTimes) {
-                return DateToolsLocalizedStrings("1 minute ago");
-            }
-            
-            return DateToolsLocalizedStrings("A minute ago");
+            return String.init(format: "%d min. temu", components.minute!)
         }
-        else if (components.second! >= 3) {
-            return self.logicalLocalizedStringFromFormat(format: "%%d %@seconds ago", value: components.second!)
+        else if (components.second! >= 0) {
+            return String.init(format: "%d sek. temu", components.second!)
         }
         else {
-            
-            if (numericTimes) {
-                return DateToolsLocalizedStrings("1 second ago");
-            }
-            
-            return DateToolsLocalizedStrings("Just now");
+            return ""
         }
     }
     
