@@ -96,19 +96,24 @@ public extension Date {
             return formatter.string(from: self)
         }
         else if (components.day! >= 2) {
-            return String.init(format: "%d dni temu", components.day!)
+//            return String.init(format: "%d dni temu", components.day!)
+            return String.init(format: "%d \(NSLocalizedString("time_few_days_ago", comment: ""))", components.day!)
         }
         else if (isYesterday) {
-            return "1 dzień temu"
+//            return "1 dzień temu" // NSLocalizedString("feed_cell_show_less", comment: "")
+            return NSLocalizedString("time_one_day_ago", comment: "")
         }
         else if (components.hour! >= 1) {
-            return String.init(format: "%d godz. temu", components.hour!)
+//            return String.init(format: "%d godz. temu", components.hour!)
+            return String.init(format: "%d \(NSLocalizedString("time_few_hours_ago", comment: ""))", components.hour!)
         }
         else if (components.minute! >= 1) {
-            return String.init(format: "%d min. temu", components.minute!)
+//            return String.init(format: "%d min. temu", components.minute!)
+            return String.init(format: "%d \(NSLocalizedString("time_few_minutes_ago", comment: ""))", components.minute!)
         }
         else if (components.second! >= 0) {
-            return String.init(format: "%d sek. temu", components.second!)
+//            return String.init(format: "%d sek. temu", components.second!)
+            return String.init(format: "%d \(NSLocalizedString("time_few_seconds_ago", comment: ""))", components.second!)
         }
         else {
             return ""
