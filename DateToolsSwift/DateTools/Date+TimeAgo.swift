@@ -103,9 +103,12 @@ public extension Date {
 //            return "1 dzień temu" // NSLocalizedString("feed_cell_show_less", comment: "")
             return NSLocalizedString("time_one_day_ago", comment: "")
         }
-        else if (components.hour! >= 1) {
+        else if (components.hour! >= 2) {
 //            return String.init(format: "%d godz. temu", components.hour!)
             return String.init(format: "%d \(NSLocalizedString("time_few_hours_ago", comment: ""))", components.hour!)
+        }
+        else if (components.hour! >= 1 && components.hour! < 2) {
+            return String.init(format: "%d \(NSLocalizedString("time_one_hour_ago", comment: ""))", components.hour!)
         }
         else if (components.minute! >= 1) {
 //            return String.init(format: "%d min. temu", components.minute!)
