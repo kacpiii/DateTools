@@ -91,7 +91,7 @@ public extension Date {
         }
         else if (components.weekOfYear! >= 1) {
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd MMMM"
+            formatter.dateFormat = "d MMMM"
             
             return formatter.string(from: self)
         }
