@@ -79,7 +79,7 @@ public extension Date {
         if (components.month! >= 1) {
             if sameYear {
                 let formatter = DateFormatter()
-                formatter.dateFormat = "dd MMMM"
+                formatter.dateFormat = "d MMMM"
                 
                 return formatter.string(from: self)
             } else {
