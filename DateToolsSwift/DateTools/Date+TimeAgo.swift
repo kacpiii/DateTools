@@ -114,9 +114,12 @@ public extension Date {
 //            return String.init(format: "%d min. temu", components.minute!)
             return String.init(format: "%d \(NSLocalizedString("time_few_minutes_ago", comment: ""))", components.minute!)
         }
-        else if (components.second! >= 0) {
+        else if (components.second! > 0) {
 //            return String.init(format: "%d sek. temu", components.second!)
             return String.init(format: "%d \(NSLocalizedString("time_few_seconds_ago", comment: ""))", components.second!)
+        }
+        else if (components.second! = 0) {
+            return NSLocalizedString("time_0_seconds_ago", comment: "")
         }
         else {
             return ""
